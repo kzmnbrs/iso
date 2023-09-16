@@ -1,0 +1,144 @@
+{% code
+type CurrencyOptions struct {
+   Codes []string
+}
+%}
+
+{% func Currency(opts *CurrencyOptions) %}
+// Code generated from iso/gen. DO NOT EDIT.
+
+package iso
+
+import (
+    "database/sql/driver"
+    "errors"
+)
+
+type (
+    Currency uint8
+    NullCurrency struct {
+        Valid bool
+        Currency Currency
+    }
+)
+
+const (
+    _ Currency = iota
+    {%- for _, code := range opts.Codes -%}
+    Currency{%s= code %}
+    {%- endfor -%}
+)
+
+var ErrBadCurrency = errors.New("bad currency")
+
+var currencyToCode = map[Currency]string{
+    {%- for _, code := range opts.Codes -%}
+    Currency{%s= code %}: "{%s= code %}",
+    {%- endfor -%}
+}
+
+var codeToCurrency = map[string]Currency{
+    {%- for _, code := range opts.Codes -%}
+    "{%s= code %}": Currency{%s= code %},
+    {%- endfor -%}
+}
+
+func CurrencyFromCode(v string) Currency {
+    return codeToCurrency[v]
+}
+
+func AppendCurrencies(dst []Currency) []Currency {
+    {%- for _, code := range opts.Codes -%}
+    dst = append(dst, Currency{%s= code %})
+    {%- endfor -%}
+    return dst
+}
+
+func (v Currency) String() string {
+	return currencyToCode[v]
+}
+
+func (v Currency) IsValid() bool {
+    return v.String() != ""
+}
+
+func (v Currency) MarshalText() ([]byte, error) {
+	code := v.String()
+	if len(code) == 0 {
+		return nil, ErrBadCurrency
+	}
+	return s2b(code), nil
+}
+
+func (v *Currency) UnmarshalText(bb []byte) error {
+	v1, found := codeToCurrency[b2s(bb)]
+	if !found {
+		return ErrBadCurrency
+	}
+	*v = v1
+	return nil
+}
+
+func (v *Currency) UnmarshalJSON(bb []byte) error {
+	if len(bb) < 2 {
+		return ErrBadCurrency
+	}
+	return v.UnmarshalText(unquote(bb))
+}
+
+func (v Currency) Value() (driver.Value, error) {
+	return v.String(), nil
+}
+
+func (v *Currency) Scan(v1 interface{}) error {
+	switch x := v1.(type) {
+	case string:
+		return v.UnmarshalText(s2b(x))
+	case []byte:
+		return v.UnmarshalText(x)
+	}
+	return ErrBadCurrency
+}
+
+func (nv *NullCurrency) UnmarshalJSON(bb []byte) error {
+    if isJsonNull(bb) {
+        nv.Valid = false
+        return nil
+    }
+
+    v := Currency(0)
+    if err := v.UnmarshalJSON(bb); err != nil {
+        nv.Valid = false
+        return err
+    }
+
+    nv.Currency = v
+    nv.Valid = true
+    return nil
+}
+
+func (nv *NullCurrency) Scan(v1 interface{}) error {
+    if v1 == nil {
+        nv.Valid = false
+        return nil
+    }
+
+    v := Currency(0)
+    if err := v.Scan(v1); err != nil {
+        nv.Valid = false
+        return err
+    }
+
+    nv.Currency = v
+    nv.Valid = true
+    return nil
+}
+{% endfunc %}
+
+{%- func CurrencySQL(opts *CurrencyOptions) -%}
+CREATE TYPE iso_currency AS ENUM (
+    {%- for i, code := range opts.Codes -%}
+    '{%s= code %}'{% if i != len(opts.Codes) - 1 %},{% endif %}
+    {%- endfor -%}
+)
+{%- endfunc -%}

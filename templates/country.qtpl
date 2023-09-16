@@ -1,0 +1,252 @@
+{% code
+type CountryOptions struct {
+    Entries []struct {
+        Alpha2       string
+        Alpha3       string
+        CurrencyCode string
+        Name string
+        LongName string
+        PhonePrefix string
+        PostalCodeRe string
+    }
+}
+%}
+
+{% func Country(opts *CountryOptions) %}
+// Code generated from iso/gen. DO NOT EDIT.
+
+package iso
+
+import (
+    "database/sql/driver"
+    "errors"
+    "regexp"
+)
+
+type (
+    Country uint8
+    NullCountry struct {
+        Valid bool
+        Country Country
+    }
+)
+
+const (
+    _ Country = iota
+    {%- for _, ent := range opts.Entries -%}
+    Country{%s= ent.Alpha2 %}
+    {%- endfor -%}
+)
+
+const (
+    {%- for _, ent := range opts.Entries -%}
+    Country{%s= ent.Alpha3 %} = Country{%s= ent.Alpha2 %}
+    {%- endfor -%}
+)
+
+var ErrBadCountry = errors.New("bad country")
+
+var countryToAlpha2 = map[Country]string{
+    {%- for _, ent := range opts.Entries -%}
+    Country{%s= ent.Alpha2 %}: "{%s= ent.Alpha2 %}",
+    {%- endfor -%}
+}
+
+var countryToAlpha3 = map[Country]string{
+    {%- for _, ent := range opts.Entries -%}
+    Country{%s= ent.Alpha3 %}: "{%s= ent.Alpha3 %}",
+    {%- endfor -%}
+}
+
+var countryToCurrency = map[Country]Currency{
+    {%- for _, ent := range opts.Entries -%}
+    Country{%s= ent.Alpha2 %}: Currency{%s= ent.CurrencyCode %},
+    {%- endfor -%}
+}
+
+var alpha2ToCountry = map[string]Country{
+   {%- for _, ent := range opts.Entries -%}
+   "{%s= ent.Alpha2 %}": Country{%s= ent.Alpha2 %},
+   {%- endfor -%}
+}
+
+var alpha3ToCountry = map[string]Country{
+   {%- for _, ent := range opts.Entries -%}
+   "{%s= ent.Alpha3 %}": Country{%s= ent.Alpha3 %},
+   {%- endfor -%}
+}
+
+var countryToName = map[Country]string{
+   {%- for _, ent := range opts.Entries -%}
+   Country{%s= ent.Alpha2 %}: "{%s= ent.Name %}",
+   {%- endfor -%}
+}
+
+var countryToLongName = map[Country]string{
+   {%- for _, ent := range opts.Entries -%}
+   Country{%s= ent.Alpha2 %}: "{%s= ent.LongName %}",
+   {%- endfor -%}
+}
+
+var countryToPhonePrefix = map[Country]string{
+   {%- for _, ent := range opts.Entries -%}
+   Country{%s= ent.Alpha2 %}: "{%s= ent.PhonePrefix %}",
+   {%- endfor -%}
+}
+
+var countryToPostalCodeRe map[Country]*regexp.Regexp
+
+func init() {
+    countryToPostalCodeRe = make(map[Country]*regexp.Regexp, len(alpha2ToCountry))
+    {%- for _, ent := range opts.Entries -%}
+    {% if len(ent.PostalCodeRe) > 0 %}
+    {
+        re := regexp.MustCompile(`{%s= ent.PostalCodeRe %}`)
+        countryToPostalCodeRe[Country{%s= ent.Alpha2 %}] = re
+    }
+    {% endif %}
+    {%- endfor -%}
+}
+
+func CountryFromCode(v string) Country {
+    x, found := alpha2ToCountry[v]
+    if !found {
+        return alpha3ToCountry[v]
+    }
+    return x
+}
+
+func CountryFromAlpha3(v string) Country {
+    return alpha3ToCountry[v]
+}
+
+func AppendCountries(dst []Country) []Country {
+    {%- for _, ent := range opts.Entries -%}
+    dst = append(dst, Country{%s= ent.Alpha2 %})
+    {%- endfor -%}
+    return dst
+}
+
+func (v Country) String() string {
+	return countryToAlpha3[v]
+}
+
+func (v Country) Alpha2() string {
+    return countryToAlpha2[v]
+}
+
+func (v Country) Name() string {
+    return countryToName[v]
+}
+
+func (v Country) LongName() string {
+    return countryToLongName[v]
+}
+
+func (v Country) PhonePrefix() string {
+    return countryToPhonePrefix[v]
+}
+
+func (v Country) PostalCodeRe() *regexp.Regexp {
+    return countryToPostalCodeRe[v]
+}
+
+func (v Country) Currency() Currency {
+    return countryToCurrency[v]
+}
+
+func (v Country) IsValid() bool {
+    return v.String() != ""
+}
+
+func (v Country) MarshalText() ([]byte, error) {
+	code := v.String()
+	if len(code) == 0 {
+		return nil, ErrBadCountry
+	}
+	return s2b(code), nil
+}
+
+func (v *Country) UnmarshalText(bb []byte) error {
+	v1, found := alpha2ToCountry[b2s(bb)]
+	if !found {
+	    v1, found = alpha3ToCountry[b2s(bb)]
+	}
+    if !found {
+        return ErrBadCountry
+    }
+	*v = v1
+	return nil
+}
+
+func (v *Country) UnmarshalJSON(bb []byte) error {
+	if len(bb) < 2 {
+		return ErrBadCountry
+	}
+	return v.UnmarshalText(unquote(bb))
+}
+
+func (v Country) Value() (driver.Value, error) {
+	return v.String(), nil
+}
+
+func (v *Country) Scan(v1 interface{}) error {
+	switch x := v1.(type) {
+	case string:
+		return v.UnmarshalText(s2b(x))
+	case []byte:
+		return v.UnmarshalText(x)
+	}
+	return ErrBadCountry
+}
+
+func (nv *NullCountry) UnmarshalJSON(bb []byte) error {
+    if isJsonNull(bb) {
+        nv.Valid = false
+        return nil
+    }
+
+    v := Country(0)
+    if err := v.UnmarshalJSON(bb); err != nil {
+        nv.Valid = false
+        return err
+    }
+
+    nv.Country = v
+    nv.Valid = true
+    return nil
+}
+
+func (nv *NullCountry) Scan(v1 interface{}) error {
+    if v1 == nil {
+        nv.Valid = false
+        return nil
+    }
+
+    v := Country(0)
+    if err := v.Scan(v1); err != nil {
+        nv.Valid = false
+        return err
+    }
+
+    nv.Country = v
+    nv.Valid = true
+    return nil
+}
+{% endfunc %}
+
+{%- func CountrySQL(opts *CountryOptions) -%}
+CREATE TYPE iso_country AS ENUM (
+    {%- for i, ent := range opts.Entries -%}
+    '{%s= ent.Alpha2 %}'{% if i != len(opts.Entries) - 1 %},{% endif %}
+    {%- endfor -%}
+)
+{%- endfunc -%}
+
+{%- func Country3SQL(opts *CountryOptions) -%}
+CREATE TYPE iso_country3 AS ENUM (
+    {%- for i, ent := range opts.Entries -%}
+    '{%s= ent.Alpha3 %}'{% if i != len(opts.Entries) - 1 %},{% endif %}
+    {%- endfor -%}
+)
+{%- endfunc -%}
