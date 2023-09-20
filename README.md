@@ -73,7 +73,7 @@ func main() {
 	ukr := iso.CountryFromCode("UKR")
 	// Optimized from code.
 	ukr1 := iso.CountryFromAlpha3("UKR")
-	assert(ua == ukr && ua == ukr1)
+	assert(ua == ukr && ua == ukr1 && ua.IsValid())
 
 	// SQL stuff.
 	fmt.Println(ua.Value())
