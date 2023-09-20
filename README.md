@@ -1,5 +1,8 @@
 # iso
 Package contains ISO country/currency enums. Based on [github.com/countries/countries](https://github.com/countries/countries).
+All enums are `uint8` subtypes, effeciently implement `json.Unmarshaler`, SQL interfaces and `fmt.Stringer`.
+
+Main focus set on memory usage and performance.
 
 ## Install
 ```bash
