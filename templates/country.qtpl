@@ -94,17 +94,11 @@ var countryToPhonePrefix = map[Country]string{
    {%- endfor -%}
 }
 
-var countryToPostalCodeRe map[Country]*regexp.Regexp
-
-func init() {
-    countryToPostalCodeRe = make(map[Country]*regexp.Regexp, len(alpha2ToCountry))
+var countryToPostalCodeRe = map[Country]*regexp.Regexp{
     {%- for _, ent := range opts.Entries -%}
-    {% if len(ent.PostalCodeRe) > 0 %}
-    {
-        re := regexp.MustCompile(`{%s= ent.PostalCodeRe %}`)
-        countryToPostalCodeRe[Country{%s= ent.Alpha2 %}] = re
-    }
-    {% endif %}
+    {%- if len(ent.PostalCodeRe) > 0 -%}
+    Country{%s= ent.Alpha2 %}: regexp.MustCompile(`{%s= ent.PostalCodeRe %}`),
+    {%- endif -%}
     {%- endfor -%}
 }
 

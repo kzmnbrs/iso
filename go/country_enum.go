@@ -2539,901 +2539,185 @@ var countryToPhonePrefix = map[Country]string{
 	CountryZW: "263",
 }
 
-var countryToPostalCodeRe map[Country]*regexp.Regexp
-
-func init() {
-	countryToPostalCodeRe = make(map[Country]*regexp.Regexp, len(alpha2ToCountry))
-
-	{
-		re := regexp.MustCompile(`AD[1-7]0\d`)
-		countryToPostalCodeRe[CountryAD] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{4}`)
-		countryToPostalCodeRe[CountryAF] = re
-	}
-
-	{
-		re := regexp.MustCompile(`(?:AI-)?2640`)
-		countryToPostalCodeRe[CountryAI] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{4}`)
-		countryToPostalCodeRe[CountryAL] = re
-	}
-
-	{
-		re := regexp.MustCompile(`(?:37)?\d{4}`)
-		countryToPostalCodeRe[CountryAM] = re
-	}
-
-	{
-		re := regexp.MustCompile(`((?:[A-HJ-NP-Z])?\d{4})([A-Z]{3})?`)
-		countryToPostalCodeRe[CountryAR] = re
-	}
-
-	{
-		re := regexp.MustCompile(`(96799)(?:[ \-](\d{4}))?`)
-		countryToPostalCodeRe[CountryAS] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{4}`)
-		countryToPostalCodeRe[CountryAT] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{4}`)
-		countryToPostalCodeRe[CountryAU] = re
-	}
-
-	{
-		re := regexp.MustCompile(`22\d{3}`)
-		countryToPostalCodeRe[CountryAX] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{4}`)
-		countryToPostalCodeRe[CountryAZ] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{5}`)
-		countryToPostalCodeRe[CountryBA] = re
-	}
-
-	{
-		re := regexp.MustCompile(`BB\d{5}`)
-		countryToPostalCodeRe[CountryBB] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{4}`)
-		countryToPostalCodeRe[CountryBD] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{4}`)
-		countryToPostalCodeRe[CountryBE] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{4}`)
-		countryToPostalCodeRe[CountryBG] = re
-	}
-
-	{
-		re := regexp.MustCompile(`(?:\d|1[0-2])\d{2}`)
-		countryToPostalCodeRe[CountryBH] = re
-	}
-
-	{
-		re := regexp.MustCompile(`9[78][01]\d{2}`)
-		countryToPostalCodeRe[CountryBL] = re
-	}
-
-	{
-		re := regexp.MustCompile(`[A-Z]{2} ?[A-Z0-9]{2}`)
-		countryToPostalCodeRe[CountryBM] = re
-	}
-
-	{
-		re := regexp.MustCompile(`[A-Z]{2} ?\d{4}`)
-		countryToPostalCodeRe[CountryBN] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{5}-?\d{3}`)
-		countryToPostalCodeRe[CountryBR] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{5}`)
-		countryToPostalCodeRe[CountryBT] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{6}`)
-		countryToPostalCodeRe[CountryBY] = re
-	}
-
-	{
-		re := regexp.MustCompile(`[ABCEGHJKLMNPRSTVXY]\d[ABCEGHJ-NPRSTV-Z] ?\d[ABCEGHJ-NPRSTV-Z]\d`)
-		countryToPostalCodeRe[CountryCA] = re
-	}
-
-	{
-		re := regexp.MustCompile(`6799`)
-		countryToPostalCodeRe[CountryCC] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{4}`)
-		countryToPostalCodeRe[CountryCH] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{7}`)
-		countryToPostalCodeRe[CountryCL] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{6}`)
-		countryToPostalCodeRe[CountryCN] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{6}`)
-		countryToPostalCodeRe[CountryCO] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{4,5}|\d{3}-\d{4}`)
-		countryToPostalCodeRe[CountryCR] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{5}`)
-		countryToPostalCodeRe[CountryCU] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{4}`)
-		countryToPostalCodeRe[CountryCV] = re
-	}
-
-	{
-		re := regexp.MustCompile(`6798`)
-		countryToPostalCodeRe[CountryCX] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{4}`)
-		countryToPostalCodeRe[CountryCY] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{3} ?\d{2}`)
-		countryToPostalCodeRe[CountryCZ] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{5}`)
-		countryToPostalCodeRe[CountryDE] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{4}`)
-		countryToPostalCodeRe[CountryDK] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{5}`)
-		countryToPostalCodeRe[CountryDO] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{5}`)
-		countryToPostalCodeRe[CountryDZ] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{6}`)
-		countryToPostalCodeRe[CountryEC] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{5}`)
-		countryToPostalCodeRe[CountryEE] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{5}`)
-		countryToPostalCodeRe[CountryEG] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{5}`)
-		countryToPostalCodeRe[CountryEH] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{5}`)
-		countryToPostalCodeRe[CountryES] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{4}`)
-		countryToPostalCodeRe[CountryET] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{5}`)
-		countryToPostalCodeRe[CountryFI] = re
-	}
-
-	{
-		re := regexp.MustCompile(`FIQQ 1ZZ`)
-		countryToPostalCodeRe[CountryFK] = re
-	}
-
-	{
-		re := regexp.MustCompile(`(9694[1-4])(?:[ \-](\d{4}))?`)
-		countryToPostalCodeRe[CountryFM] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{3}`)
-		countryToPostalCodeRe[CountryFO] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{2} ?\d{3}`)
-		countryToPostalCodeRe[CountryFR] = re
-	}
-
-	{
-		re := regexp.MustCompile(`GIR ?0AA|(?:(?:AB|AL|B|BA|BB|BD|BF|BH|BL|BN|BR|BS|BT|BX|CA|CB|CF|CH|CM|CO|CR|CT|CV|CW|DA|DD|DE|DG|DH|DL|DN|DT|DY|E|EC|EH|EN|EX|FK|FY|G|GL|GY|GU|HA|HD|HG|HP|HR|HS|HU|HX|IG|IM|IP|IV|JE|KA|KT|KW|KY|L|LA|LD|LE|LL|LN|LS|LU|M|ME|MK|ML|N|NE|NG|NN|NP|NR|NW|OL|OX|PA|PE|PH|PL|PO|PR|RG|RH|RM|S|SA|SE|SG|SK|SL|SM|SN|SO|SP|SR|SS|ST|SW|SY|TA|TD|TF|TN|TQ|TR|TS|TW|UB|W|WA|WC|WD|WF|WN|WR|WS|WV|YO|ZE)(?:\d[\dA-Z]? ?\d[ABD-HJLN-UW-Z]{2}))|BFPO ?\d{1,4}`)
-		countryToPostalCodeRe[CountryGB] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{4}`)
-		countryToPostalCodeRe[CountryGE] = re
-	}
-
-	{
-		re := regexp.MustCompile(`9[78]3\d{2}`)
-		countryToPostalCodeRe[CountryGF] = re
-	}
-
-	{
-		re := regexp.MustCompile(`GY\d[\dA-Z]? ?\d[ABD-HJLN-UW-Z]{2}`)
-		countryToPostalCodeRe[CountryGG] = re
-	}
-
-	{
-		re := regexp.MustCompile(`GX11 1AA`)
-		countryToPostalCodeRe[CountryGI] = re
-	}
-
-	{
-		re := regexp.MustCompile(`39\d{2}`)
-		countryToPostalCodeRe[CountryGL] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{3}`)
-		countryToPostalCodeRe[CountryGN] = re
-	}
-
-	{
-		re := regexp.MustCompile(`9[78][01]\d{2}`)
-		countryToPostalCodeRe[CountryGP] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{3} ?\d{2}`)
-		countryToPostalCodeRe[CountryGR] = re
-	}
-
-	{
-		re := regexp.MustCompile(`SIQQ 1ZZ`)
-		countryToPostalCodeRe[CountryGS] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{5}`)
-		countryToPostalCodeRe[CountryGT] = re
-	}
-
-	{
-		re := regexp.MustCompile(`(969(?:[12]\d|3[12]))(?:[ \-](\d{4}))?`)
-		countryToPostalCodeRe[CountryGU] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{4}`)
-		countryToPostalCodeRe[CountryGW] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{4}`)
-		countryToPostalCodeRe[CountryHM] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{5}`)
-		countryToPostalCodeRe[CountryHN] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{5}`)
-		countryToPostalCodeRe[CountryHR] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{4}`)
-		countryToPostalCodeRe[CountryHT] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{4}`)
-		countryToPostalCodeRe[CountryHU] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{5}`)
-		countryToPostalCodeRe[CountryID] = re
-	}
-
-	{
-		re := regexp.MustCompile(`[\dA-Z]{3} ?[\dA-Z]{4}`)
-		countryToPostalCodeRe[CountryIE] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{5}(?:\d{2})?`)
-		countryToPostalCodeRe[CountryIL] = re
-	}
-
-	{
-		re := regexp.MustCompile(`IM\d[\dA-Z]? ?\d[ABD-HJLN-UW-Z]{2}`)
-		countryToPostalCodeRe[CountryIM] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{6}`)
-		countryToPostalCodeRe[CountryIN] = re
-	}
-
-	{
-		re := regexp.MustCompile(`BBND 1ZZ`)
-		countryToPostalCodeRe[CountryIO] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{5}`)
-		countryToPostalCodeRe[CountryIQ] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{5}-?\d{5}`)
-		countryToPostalCodeRe[CountryIR] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{3}`)
-		countryToPostalCodeRe[CountryIS] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{5}`)
-		countryToPostalCodeRe[CountryIT] = re
-	}
-
-	{
-		re := regexp.MustCompile(`JE\d[\dA-Z]? ?\d[ABD-HJLN-UW-Z]{2}`)
-		countryToPostalCodeRe[CountryJE] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{5}`)
-		countryToPostalCodeRe[CountryJO] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{3}-?\d{4}`)
-		countryToPostalCodeRe[CountryJP] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{5}`)
-		countryToPostalCodeRe[CountryKE] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{6}`)
-		countryToPostalCodeRe[CountryKG] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{5,6}`)
-		countryToPostalCodeRe[CountryKH] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{5}`)
-		countryToPostalCodeRe[CountryKR] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{5}`)
-		countryToPostalCodeRe[CountryKW] = re
-	}
-
-	{
-		re := regexp.MustCompile(`KY\d-\d{4}`)
-		countryToPostalCodeRe[CountryKY] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{6}`)
-		countryToPostalCodeRe[CountryKZ] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{5}`)
-		countryToPostalCodeRe[CountryLA] = re
-	}
-
-	{
-		re := regexp.MustCompile(`(?:\d{4})(?: ?(?:\d{4}))?`)
-		countryToPostalCodeRe[CountryLB] = re
-	}
-
-	{
-		re := regexp.MustCompile(`948[5-9]|949[0-8]`)
-		countryToPostalCodeRe[CountryLI] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{5}`)
-		countryToPostalCodeRe[CountryLK] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{4}`)
-		countryToPostalCodeRe[CountryLR] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{3}`)
-		countryToPostalCodeRe[CountryLS] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{5}`)
-		countryToPostalCodeRe[CountryLT] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{4}`)
-		countryToPostalCodeRe[CountryLU] = re
-	}
-
-	{
-		re := regexp.MustCompile(`LV-\d{4}`)
-		countryToPostalCodeRe[CountryLV] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{5}`)
-		countryToPostalCodeRe[CountryMA] = re
-	}
-
-	{
-		re := regexp.MustCompile(`980\d{2}`)
-		countryToPostalCodeRe[CountryMC] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{4}`)
-		countryToPostalCodeRe[CountryMD] = re
-	}
-
-	{
-		re := regexp.MustCompile(`8\d{4}`)
-		countryToPostalCodeRe[CountryME] = re
-	}
-
-	{
-		re := regexp.MustCompile(`9[78][01]\d{2}`)
-		countryToPostalCodeRe[CountryMF] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{3}`)
-		countryToPostalCodeRe[CountryMG] = re
-	}
-
-	{
-		re := regexp.MustCompile(`(969[67]\d)(?:[ \-](\d{4}))?`)
-		countryToPostalCodeRe[CountryMH] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{4}`)
-		countryToPostalCodeRe[CountryMK] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{5}`)
-		countryToPostalCodeRe[CountryMM] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{5}`)
-		countryToPostalCodeRe[CountryMN] = re
-	}
-
-	{
-		re := regexp.MustCompile(`(9695[012])(?:[ \-](\d{4}))?`)
-		countryToPostalCodeRe[CountryMP] = re
-	}
-
-	{
-		re := regexp.MustCompile(`9[78]2\d{2}`)
-		countryToPostalCodeRe[CountryMQ] = re
-	}
-
-	{
-		re := regexp.MustCompile(`[A-Z]{3} ?\d{2,4}`)
-		countryToPostalCodeRe[CountryMT] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{3}(?:\d{2}|[A-Z]{2}\d{3})`)
-		countryToPostalCodeRe[CountryMU] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{5}`)
-		countryToPostalCodeRe[CountryMV] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{5}`)
-		countryToPostalCodeRe[CountryMX] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{5}`)
-		countryToPostalCodeRe[CountryMY] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{4}`)
-		countryToPostalCodeRe[CountryMZ] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{5}`)
-		countryToPostalCodeRe[CountryNA] = re
-	}
-
-	{
-		re := regexp.MustCompile(`988\d{2}`)
-		countryToPostalCodeRe[CountryNC] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{4}`)
-		countryToPostalCodeRe[CountryNE] = re
-	}
-
-	{
-		re := regexp.MustCompile(`2899`)
-		countryToPostalCodeRe[CountryNF] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{6}`)
-		countryToPostalCodeRe[CountryNG] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{5}`)
-		countryToPostalCodeRe[CountryNI] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{4} ?[A-Z]{2}`)
-		countryToPostalCodeRe[CountryNL] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{4}`)
-		countryToPostalCodeRe[CountryNO] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{5}`)
-		countryToPostalCodeRe[CountryNP] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{4}`)
-		countryToPostalCodeRe[CountryNZ] = re
-	}
-
-	{
-		re := regexp.MustCompile(`(?:PC )?\d{3}`)
-		countryToPostalCodeRe[CountryOM] = re
-	}
-
-	{
-		re := regexp.MustCompile(`(?:LIMA \d{1,2}|CALLAO 0?\d)|[0-2]\d{4}`)
-		countryToPostalCodeRe[CountryPE] = re
-	}
-
-	{
-		re := regexp.MustCompile(`987\d{2}`)
-		countryToPostalCodeRe[CountryPF] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{3}`)
-		countryToPostalCodeRe[CountryPG] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{4}`)
-		countryToPostalCodeRe[CountryPH] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{5}`)
-		countryToPostalCodeRe[CountryPK] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{2}-\d{3}`)
-		countryToPostalCodeRe[CountryPL] = re
-	}
-
-	{
-		re := regexp.MustCompile(`9[78]5\d{2}`)
-		countryToPostalCodeRe[CountryPM] = re
-	}
-
-	{
-		re := regexp.MustCompile(`PCRN 1ZZ`)
-		countryToPostalCodeRe[CountryPN] = re
-	}
-
-	{
-		re := regexp.MustCompile(`(00[679]\d{2})(?:[ \-](\d{4}))?`)
-		countryToPostalCodeRe[CountryPR] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{4}-\d{3}`)
-		countryToPostalCodeRe[CountryPT] = re
-	}
-
-	{
-		re := regexp.MustCompile(`(969(?:39|40))(?:[ \-](\d{4}))?`)
-		countryToPostalCodeRe[CountryPW] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{4}`)
-		countryToPostalCodeRe[CountryPY] = re
-	}
-
-	{
-		re := regexp.MustCompile(`9[78]4\d{2}`)
-		countryToPostalCodeRe[CountryRE] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{6}`)
-		countryToPostalCodeRe[CountryRO] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{5,6}`)
-		countryToPostalCodeRe[CountryRS] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{6}`)
-		countryToPostalCodeRe[CountryRU] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{5}`)
-		countryToPostalCodeRe[CountrySA] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{5}`)
-		countryToPostalCodeRe[CountrySD] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{3} ?\d{2}`)
-		countryToPostalCodeRe[CountrySE] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{6}`)
-		countryToPostalCodeRe[CountrySG] = re
-	}
-
-	{
-		re := regexp.MustCompile(`(?:ASCN|STHL) 1ZZ`)
-		countryToPostalCodeRe[CountrySH] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{4}`)
-		countryToPostalCodeRe[CountrySI] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{4}`)
-		countryToPostalCodeRe[CountrySJ] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{3} ?\d{2}`)
-		countryToPostalCodeRe[CountrySK] = re
-	}
-
-	{
-		re := regexp.MustCompile(`4789\d`)
-		countryToPostalCodeRe[CountrySM] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{5}`)
-		countryToPostalCodeRe[CountrySN] = re
-	}
-
-	{
-		re := regexp.MustCompile(`[A-Z]{2} ?\d{5}`)
-		countryToPostalCodeRe[CountrySO] = re
-	}
-
-	{
-		re := regexp.MustCompile(`CP [1-3][1-7][0-2]\d`)
-		countryToPostalCodeRe[CountrySV] = re
-	}
-
-	{
-		re := regexp.MustCompile(`[HLMS]\d{3}`)
-		countryToPostalCodeRe[CountrySZ] = re
-	}
-
-	{
-		re := regexp.MustCompile(`TKCA 1ZZ`)
-		countryToPostalCodeRe[CountryTC] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{5}`)
-		countryToPostalCodeRe[CountryTH] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{6}`)
-		countryToPostalCodeRe[CountryTJ] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{6}`)
-		countryToPostalCodeRe[CountryTM] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{4}`)
-		countryToPostalCodeRe[CountryTN] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{5}`)
-		countryToPostalCodeRe[CountryTR] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{3}(?:\d{2,3})?`)
-		countryToPostalCodeRe[CountryTW] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{4,5}`)
-		countryToPostalCodeRe[CountryTZ] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{5}`)
-		countryToPostalCodeRe[CountryUA] = re
-	}
-
-	{
-		re := regexp.MustCompile(`96898`)
-		countryToPostalCodeRe[CountryUM] = re
-	}
-
-	{
-		re := regexp.MustCompile(`(\d{5})(?:[ \-](\d{4}))?`)
-		countryToPostalCodeRe[CountryUS] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{5}`)
-		countryToPostalCodeRe[CountryUY] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{6}`)
-		countryToPostalCodeRe[CountryUZ] = re
-	}
-
-	{
-		re := regexp.MustCompile(`00120`)
-		countryToPostalCodeRe[CountryVA] = re
-	}
-
-	{
-		re := regexp.MustCompile(`VC\d{4}`)
-		countryToPostalCodeRe[CountryVC] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{4}`)
-		countryToPostalCodeRe[CountryVE] = re
-	}
-
-	{
-		re := regexp.MustCompile(`VG\d{4}`)
-		countryToPostalCodeRe[CountryVG] = re
-	}
-
-	{
-		re := regexp.MustCompile(`(008(?:(?:[0-4]\d)|(?:5[01])))(?:[ \-](\d{4}))?`)
-		countryToPostalCodeRe[CountryVI] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{5}\d?`)
-		countryToPostalCodeRe[CountryVN] = re
-	}
-
-	{
-		re := regexp.MustCompile(`986\d{2}`)
-		countryToPostalCodeRe[CountryWF] = re
-	}
-
-	{
-		re := regexp.MustCompile(`976\d{2}`)
-		countryToPostalCodeRe[CountryYT] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{4}`)
-		countryToPostalCodeRe[CountryZA] = re
-	}
-
-	{
-		re := regexp.MustCompile(`\d{5}`)
-		countryToPostalCodeRe[CountryZM] = re
-	}
-
+var countryToPostalCodeRe = map[Country]*regexp.Regexp{
+	CountryAD: regexp.MustCompile(`AD[1-7]0\d`),
+	CountryAF: regexp.MustCompile(`\d{4}`),
+	CountryAI: regexp.MustCompile(`(?:AI-)?2640`),
+	CountryAL: regexp.MustCompile(`\d{4}`),
+	CountryAM: regexp.MustCompile(`(?:37)?\d{4}`),
+	CountryAR: regexp.MustCompile(`((?:[A-HJ-NP-Z])?\d{4})([A-Z]{3})?`),
+	CountryAS: regexp.MustCompile(`(96799)(?:[ \-](\d{4}))?`),
+	CountryAT: regexp.MustCompile(`\d{4}`),
+	CountryAU: regexp.MustCompile(`\d{4}`),
+	CountryAX: regexp.MustCompile(`22\d{3}`),
+	CountryAZ: regexp.MustCompile(`\d{4}`),
+	CountryBA: regexp.MustCompile(`\d{5}`),
+	CountryBB: regexp.MustCompile(`BB\d{5}`),
+	CountryBD: regexp.MustCompile(`\d{4}`),
+	CountryBE: regexp.MustCompile(`\d{4}`),
+	CountryBG: regexp.MustCompile(`\d{4}`),
+	CountryBH: regexp.MustCompile(`(?:\d|1[0-2])\d{2}`),
+	CountryBL: regexp.MustCompile(`9[78][01]\d{2}`),
+	CountryBM: regexp.MustCompile(`[A-Z]{2} ?[A-Z0-9]{2}`),
+	CountryBN: regexp.MustCompile(`[A-Z]{2} ?\d{4}`),
+	CountryBR: regexp.MustCompile(`\d{5}-?\d{3}`),
+	CountryBT: regexp.MustCompile(`\d{5}`),
+	CountryBY: regexp.MustCompile(`\d{6}`),
+	CountryCA: regexp.MustCompile(`[ABCEGHJKLMNPRSTVXY]\d[ABCEGHJ-NPRSTV-Z] ?\d[ABCEGHJ-NPRSTV-Z]\d`),
+	CountryCC: regexp.MustCompile(`6799`),
+	CountryCH: regexp.MustCompile(`\d{4}`),
+	CountryCL: regexp.MustCompile(`\d{7}`),
+	CountryCN: regexp.MustCompile(`\d{6}`),
+	CountryCO: regexp.MustCompile(`\d{6}`),
+	CountryCR: regexp.MustCompile(`\d{4,5}|\d{3}-\d{4}`),
+	CountryCU: regexp.MustCompile(`\d{5}`),
+	CountryCV: regexp.MustCompile(`\d{4}`),
+	CountryCX: regexp.MustCompile(`6798`),
+	CountryCY: regexp.MustCompile(`\d{4}`),
+	CountryCZ: regexp.MustCompile(`\d{3} ?\d{2}`),
+	CountryDE: regexp.MustCompile(`\d{5}`),
+	CountryDK: regexp.MustCompile(`\d{4}`),
+	CountryDO: regexp.MustCompile(`\d{5}`),
+	CountryDZ: regexp.MustCompile(`\d{5}`),
+	CountryEC: regexp.MustCompile(`\d{6}`),
+	CountryEE: regexp.MustCompile(`\d{5}`),
+	CountryEG: regexp.MustCompile(`\d{5}`),
+	CountryEH: regexp.MustCompile(`\d{5}`),
+	CountryES: regexp.MustCompile(`\d{5}`),
+	CountryET: regexp.MustCompile(`\d{4}`),
+	CountryFI: regexp.MustCompile(`\d{5}`),
+	CountryFK: regexp.MustCompile(`FIQQ 1ZZ`),
+	CountryFM: regexp.MustCompile(`(9694[1-4])(?:[ \-](\d{4}))?`),
+	CountryFO: regexp.MustCompile(`\d{3}`),
+	CountryFR: regexp.MustCompile(`\d{2} ?\d{3}`),
+	CountryGB: regexp.MustCompile(`GIR ?0AA|(?:(?:AB|AL|B|BA|BB|BD|BF|BH|BL|BN|BR|BS|BT|BX|CA|CB|CF|CH|CM|CO|CR|CT|CV|CW|DA|DD|DE|DG|DH|DL|DN|DT|DY|E|EC|EH|EN|EX|FK|FY|G|GL|GY|GU|HA|HD|HG|HP|HR|HS|HU|HX|IG|IM|IP|IV|JE|KA|KT|KW|KY|L|LA|LD|LE|LL|LN|LS|LU|M|ME|MK|ML|N|NE|NG|NN|NP|NR|NW|OL|OX|PA|PE|PH|PL|PO|PR|RG|RH|RM|S|SA|SE|SG|SK|SL|SM|SN|SO|SP|SR|SS|ST|SW|SY|TA|TD|TF|TN|TQ|TR|TS|TW|UB|W|WA|WC|WD|WF|WN|WR|WS|WV|YO|ZE)(?:\d[\dA-Z]? ?\d[ABD-HJLN-UW-Z]{2}))|BFPO ?\d{1,4}`),
+	CountryGE: regexp.MustCompile(`\d{4}`),
+	CountryGF: regexp.MustCompile(`9[78]3\d{2}`),
+	CountryGG: regexp.MustCompile(`GY\d[\dA-Z]? ?\d[ABD-HJLN-UW-Z]{2}`),
+	CountryGI: regexp.MustCompile(`GX11 1AA`),
+	CountryGL: regexp.MustCompile(`39\d{2}`),
+	CountryGN: regexp.MustCompile(`\d{3}`),
+	CountryGP: regexp.MustCompile(`9[78][01]\d{2}`),
+	CountryGR: regexp.MustCompile(`\d{3} ?\d{2}`),
+	CountryGS: regexp.MustCompile(`SIQQ 1ZZ`),
+	CountryGT: regexp.MustCompile(`\d{5}`),
+	CountryGU: regexp.MustCompile(`(969(?:[12]\d|3[12]))(?:[ \-](\d{4}))?`),
+	CountryGW: regexp.MustCompile(`\d{4}`),
+	CountryHM: regexp.MustCompile(`\d{4}`),
+	CountryHN: regexp.MustCompile(`\d{5}`),
+	CountryHR: regexp.MustCompile(`\d{5}`),
+	CountryHT: regexp.MustCompile(`\d{4}`),
+	CountryHU: regexp.MustCompile(`\d{4}`),
+	CountryID: regexp.MustCompile(`\d{5}`),
+	CountryIE: regexp.MustCompile(`[\dA-Z]{3} ?[\dA-Z]{4}`),
+	CountryIL: regexp.MustCompile(`\d{5}(?:\d{2})?`),
+	CountryIM: regexp.MustCompile(`IM\d[\dA-Z]? ?\d[ABD-HJLN-UW-Z]{2}`),
+	CountryIN: regexp.MustCompile(`\d{6}`),
+	CountryIO: regexp.MustCompile(`BBND 1ZZ`),
+	CountryIQ: regexp.MustCompile(`\d{5}`),
+	CountryIR: regexp.MustCompile(`\d{5}-?\d{5}`),
+	CountryIS: regexp.MustCompile(`\d{3}`),
+	CountryIT: regexp.MustCompile(`\d{5}`),
+	CountryJE: regexp.MustCompile(`JE\d[\dA-Z]? ?\d[ABD-HJLN-UW-Z]{2}`),
+	CountryJO: regexp.MustCompile(`\d{5}`),
+	CountryJP: regexp.MustCompile(`\d{3}-?\d{4}`),
+	CountryKE: regexp.MustCompile(`\d{5}`),
+	CountryKG: regexp.MustCompile(`\d{6}`),
+	CountryKH: regexp.MustCompile(`\d{5,6}`),
+	CountryKR: regexp.MustCompile(`\d{5}`),
+	CountryKW: regexp.MustCompile(`\d{5}`),
+	CountryKY: regexp.MustCompile(`KY\d-\d{4}`),
+	CountryKZ: regexp.MustCompile(`\d{6}`),
+	CountryLA: regexp.MustCompile(`\d{5}`),
+	CountryLB: regexp.MustCompile(`(?:\d{4})(?: ?(?:\d{4}))?`),
+	CountryLI: regexp.MustCompile(`948[5-9]|949[0-8]`),
+	CountryLK: regexp.MustCompile(`\d{5}`),
+	CountryLR: regexp.MustCompile(`\d{4}`),
+	CountryLS: regexp.MustCompile(`\d{3}`),
+	CountryLT: regexp.MustCompile(`\d{5}`),
+	CountryLU: regexp.MustCompile(`\d{4}`),
+	CountryLV: regexp.MustCompile(`LV-\d{4}`),
+	CountryMA: regexp.MustCompile(`\d{5}`),
+	CountryMC: regexp.MustCompile(`980\d{2}`),
+	CountryMD: regexp.MustCompile(`\d{4}`),
+	CountryME: regexp.MustCompile(`8\d{4}`),
+	CountryMF: regexp.MustCompile(`9[78][01]\d{2}`),
+	CountryMG: regexp.MustCompile(`\d{3}`),
+	CountryMH: regexp.MustCompile(`(969[67]\d)(?:[ \-](\d{4}))?`),
+	CountryMK: regexp.MustCompile(`\d{4}`),
+	CountryMM: regexp.MustCompile(`\d{5}`),
+	CountryMN: regexp.MustCompile(`\d{5}`),
+	CountryMP: regexp.MustCompile(`(9695[012])(?:[ \-](\d{4}))?`),
+	CountryMQ: regexp.MustCompile(`9[78]2\d{2}`),
+	CountryMT: regexp.MustCompile(`[A-Z]{3} ?\d{2,4}`),
+	CountryMU: regexp.MustCompile(`\d{3}(?:\d{2}|[A-Z]{2}\d{3})`),
+	CountryMV: regexp.MustCompile(`\d{5}`),
+	CountryMX: regexp.MustCompile(`\d{5}`),
+	CountryMY: regexp.MustCompile(`\d{5}`),
+	CountryMZ: regexp.MustCompile(`\d{4}`),
+	CountryNA: regexp.MustCompile(`\d{5}`),
+	CountryNC: regexp.MustCompile(`988\d{2}`),
+	CountryNE: regexp.MustCompile(`\d{4}`),
+	CountryNF: regexp.MustCompile(`2899`),
+	CountryNG: regexp.MustCompile(`\d{6}`),
+	CountryNI: regexp.MustCompile(`\d{5}`),
+	CountryNL: regexp.MustCompile(`\d{4} ?[A-Z]{2}`),
+	CountryNO: regexp.MustCompile(`\d{4}`),
+	CountryNP: regexp.MustCompile(`\d{5}`),
+	CountryNZ: regexp.MustCompile(`\d{4}`),
+	CountryOM: regexp.MustCompile(`(?:PC )?\d{3}`),
+	CountryPE: regexp.MustCompile(`(?:LIMA \d{1,2}|CALLAO 0?\d)|[0-2]\d{4}`),
+	CountryPF: regexp.MustCompile(`987\d{2}`),
+	CountryPG: regexp.MustCompile(`\d{3}`),
+	CountryPH: regexp.MustCompile(`\d{4}`),
+	CountryPK: regexp.MustCompile(`\d{5}`),
+	CountryPL: regexp.MustCompile(`\d{2}-\d{3}`),
+	CountryPM: regexp.MustCompile(`9[78]5\d{2}`),
+	CountryPN: regexp.MustCompile(`PCRN 1ZZ`),
+	CountryPR: regexp.MustCompile(`(00[679]\d{2})(?:[ \-](\d{4}))?`),
+	CountryPT: regexp.MustCompile(`\d{4}-\d{3}`),
+	CountryPW: regexp.MustCompile(`(969(?:39|40))(?:[ \-](\d{4}))?`),
+	CountryPY: regexp.MustCompile(`\d{4}`),
+	CountryRE: regexp.MustCompile(`9[78]4\d{2}`),
+	CountryRO: regexp.MustCompile(`\d{6}`),
+	CountryRS: regexp.MustCompile(`\d{5,6}`),
+	CountryRU: regexp.MustCompile(`\d{6}`),
+	CountrySA: regexp.MustCompile(`\d{5}`),
+	CountrySD: regexp.MustCompile(`\d{5}`),
+	CountrySE: regexp.MustCompile(`\d{3} ?\d{2}`),
+	CountrySG: regexp.MustCompile(`\d{6}`),
+	CountrySH: regexp.MustCompile(`(?:ASCN|STHL) 1ZZ`),
+	CountrySI: regexp.MustCompile(`\d{4}`),
+	CountrySJ: regexp.MustCompile(`\d{4}`),
+	CountrySK: regexp.MustCompile(`\d{3} ?\d{2}`),
+	CountrySM: regexp.MustCompile(`4789\d`),
+	CountrySN: regexp.MustCompile(`\d{5}`),
+	CountrySO: regexp.MustCompile(`[A-Z]{2} ?\d{5}`),
+	CountrySV: regexp.MustCompile(`CP [1-3][1-7][0-2]\d`),
+	CountrySZ: regexp.MustCompile(`[HLMS]\d{3}`),
+	CountryTC: regexp.MustCompile(`TKCA 1ZZ`),
+	CountryTH: regexp.MustCompile(`\d{5}`),
+	CountryTJ: regexp.MustCompile(`\d{6}`),
+	CountryTM: regexp.MustCompile(`\d{6}`),
+	CountryTN: regexp.MustCompile(`\d{4}`),
+	CountryTR: regexp.MustCompile(`\d{5}`),
+	CountryTW: regexp.MustCompile(`\d{3}(?:\d{2,3})?`),
+	CountryTZ: regexp.MustCompile(`\d{4,5}`),
+	CountryUA: regexp.MustCompile(`\d{5}`),
+	CountryUM: regexp.MustCompile(`96898`),
+	CountryUS: regexp.MustCompile(`(\d{5})(?:[ \-](\d{4}))?`),
+	CountryUY: regexp.MustCompile(`\d{5}`),
+	CountryUZ: regexp.MustCompile(`\d{6}`),
+	CountryVA: regexp.MustCompile(`00120`),
+	CountryVC: regexp.MustCompile(`VC\d{4}`),
+	CountryVE: regexp.MustCompile(`\d{4}`),
+	CountryVG: regexp.MustCompile(`VG\d{4}`),
+	CountryVI: regexp.MustCompile(`(008(?:(?:[0-4]\d)|(?:5[01])))(?:[ \-](\d{4}))?`),
+	CountryVN: regexp.MustCompile(`\d{5}\d?`),
+	CountryWF: regexp.MustCompile(`986\d{2}`),
+	CountryYT: regexp.MustCompile(`976\d{2}`),
+	CountryZA: regexp.MustCompile(`\d{4}`),
+	CountryZM: regexp.MustCompile(`\d{5}`),
 }
 
 func CountryFromCode(v string) Country {

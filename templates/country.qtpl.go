@@ -251,46 +251,34 @@ var countryToPhonePrefix = map[Country]string{
 //line templates/country.qtpl:94
 	qw422016.N().S(`}
 
-var countryToPostalCodeRe map[Country]*regexp.Regexp
-
-func init() {
-    countryToPostalCodeRe = make(map[Country]*regexp.Regexp, len(alpha2ToCountry))
+var countryToPostalCodeRe = map[Country]*regexp.Regexp{
 `)
-//line templates/country.qtpl:101
+//line templates/country.qtpl:98
 	for _, ent := range opts.Entries {
-//line templates/country.qtpl:101
-		qw422016.N().S(`    `)
-//line templates/country.qtpl:102
+//line templates/country.qtpl:99
 		if len(ent.PostalCodeRe) > 0 {
-//line templates/country.qtpl:102
-			qw422016.N().S(`
-    {
-        re := regexp.MustCompile(`)
-//line templates/country.qtpl:102
-			qw422016.N().S("`")
-//line templates/country.qtpl:104
-			qw422016.N().S(ent.PostalCodeRe)
-//line templates/country.qtpl:104
-			qw422016.N().S(``)
-//line templates/country.qtpl:104
-			qw422016.N().S("`")
-//line templates/country.qtpl:104
-			qw422016.N().S(`)
-        countryToPostalCodeRe[Country`)
-//line templates/country.qtpl:105
+//line templates/country.qtpl:99
+			qw422016.N().S(`    Country`)
+//line templates/country.qtpl:100
 			qw422016.N().S(ent.Alpha2)
-//line templates/country.qtpl:105
-			qw422016.N().S(`] = re
-    }
-    `)
-//line templates/country.qtpl:107
-		}
-//line templates/country.qtpl:107
-		qw422016.N().S(`
+//line templates/country.qtpl:100
+			qw422016.N().S(`: regexp.MustCompile(`)
+//line templates/country.qtpl:100
+			qw422016.N().S("`")
+//line templates/country.qtpl:100
+			qw422016.N().S(ent.PostalCodeRe)
+//line templates/country.qtpl:100
+			qw422016.N().S(``)
+//line templates/country.qtpl:100
+			qw422016.N().S("`")
+//line templates/country.qtpl:100
+			qw422016.N().S(`),
 `)
-//line templates/country.qtpl:108
+//line templates/country.qtpl:101
+		}
+//line templates/country.qtpl:102
 	}
-//line templates/country.qtpl:108
+//line templates/country.qtpl:102
 	qw422016.N().S(`}
 
 func CountryFromCode(v string) Country {
@@ -307,18 +295,18 @@ func CountryFromAlpha3(v string) Country {
 
 func AppendCountries(dst []Country) []Country {
 `)
-//line templates/country.qtpl:124
+//line templates/country.qtpl:118
 	for _, ent := range opts.Entries {
-//line templates/country.qtpl:124
+//line templates/country.qtpl:118
 		qw422016.N().S(`    dst = append(dst, Country`)
-//line templates/country.qtpl:125
+//line templates/country.qtpl:119
 		qw422016.N().S(ent.Alpha2)
-//line templates/country.qtpl:125
+//line templates/country.qtpl:119
 		qw422016.N().S(`)
 `)
-//line templates/country.qtpl:126
+//line templates/country.qtpl:120
 	}
-//line templates/country.qtpl:126
+//line templates/country.qtpl:120
 	qw422016.N().S(`    return dst
 }
 
@@ -429,143 +417,143 @@ func (nv *NullCountry) Scan(v1 interface{}) error {
     return nil
 }
 `)
-//line templates/country.qtpl:236
+//line templates/country.qtpl:230
 }
 
-//line templates/country.qtpl:236
+//line templates/country.qtpl:230
 func WriteCountry(qq422016 qtio422016.Writer, opts *CountryOptions) {
-//line templates/country.qtpl:236
+//line templates/country.qtpl:230
 	qw422016 := qt422016.AcquireWriter(qq422016)
-//line templates/country.qtpl:236
+//line templates/country.qtpl:230
 	StreamCountry(qw422016, opts)
-//line templates/country.qtpl:236
+//line templates/country.qtpl:230
 	qt422016.ReleaseWriter(qw422016)
-//line templates/country.qtpl:236
+//line templates/country.qtpl:230
 }
 
-//line templates/country.qtpl:236
+//line templates/country.qtpl:230
 func Country(opts *CountryOptions) string {
-//line templates/country.qtpl:236
+//line templates/country.qtpl:230
 	qb422016 := qt422016.AcquireByteBuffer()
-//line templates/country.qtpl:236
+//line templates/country.qtpl:230
 	WriteCountry(qb422016, opts)
-//line templates/country.qtpl:236
+//line templates/country.qtpl:230
 	qs422016 := string(qb422016.B)
-//line templates/country.qtpl:236
+//line templates/country.qtpl:230
 	qt422016.ReleaseByteBuffer(qb422016)
-//line templates/country.qtpl:236
+//line templates/country.qtpl:230
 	return qs422016
-//line templates/country.qtpl:236
+//line templates/country.qtpl:230
 }
 
-//line templates/country.qtpl:238
+//line templates/country.qtpl:232
 func StreamCountrySQL(qw422016 *qt422016.Writer, opts *CountryOptions) {
-//line templates/country.qtpl:238
+//line templates/country.qtpl:232
 	qw422016.N().S(`CREATE TYPE iso_country AS ENUM (
 `)
-//line templates/country.qtpl:240
+//line templates/country.qtpl:234
 	for i, ent := range opts.Entries {
-//line templates/country.qtpl:240
+//line templates/country.qtpl:234
 		qw422016.N().S(`    '`)
-//line templates/country.qtpl:241
+//line templates/country.qtpl:235
 		qw422016.N().S(ent.Alpha2)
-//line templates/country.qtpl:241
+//line templates/country.qtpl:235
 		qw422016.N().S(`'`)
-//line templates/country.qtpl:241
+//line templates/country.qtpl:235
 		if i != len(opts.Entries)-1 {
-//line templates/country.qtpl:241
+//line templates/country.qtpl:235
 			qw422016.N().S(`,`)
-//line templates/country.qtpl:241
+//line templates/country.qtpl:235
 		}
-//line templates/country.qtpl:241
+//line templates/country.qtpl:235
 		qw422016.N().S(`
 `)
-//line templates/country.qtpl:242
+//line templates/country.qtpl:236
 	}
-//line templates/country.qtpl:242
+//line templates/country.qtpl:236
 	qw422016.N().S(`)
 `)
-//line templates/country.qtpl:244
+//line templates/country.qtpl:238
 }
 
-//line templates/country.qtpl:244
+//line templates/country.qtpl:238
 func WriteCountrySQL(qq422016 qtio422016.Writer, opts *CountryOptions) {
-//line templates/country.qtpl:244
+//line templates/country.qtpl:238
 	qw422016 := qt422016.AcquireWriter(qq422016)
-//line templates/country.qtpl:244
+//line templates/country.qtpl:238
 	StreamCountrySQL(qw422016, opts)
-//line templates/country.qtpl:244
+//line templates/country.qtpl:238
 	qt422016.ReleaseWriter(qw422016)
-//line templates/country.qtpl:244
+//line templates/country.qtpl:238
 }
 
-//line templates/country.qtpl:244
+//line templates/country.qtpl:238
 func CountrySQL(opts *CountryOptions) string {
-//line templates/country.qtpl:244
+//line templates/country.qtpl:238
 	qb422016 := qt422016.AcquireByteBuffer()
-//line templates/country.qtpl:244
+//line templates/country.qtpl:238
 	WriteCountrySQL(qb422016, opts)
-//line templates/country.qtpl:244
+//line templates/country.qtpl:238
 	qs422016 := string(qb422016.B)
-//line templates/country.qtpl:244
+//line templates/country.qtpl:238
 	qt422016.ReleaseByteBuffer(qb422016)
-//line templates/country.qtpl:244
+//line templates/country.qtpl:238
 	return qs422016
-//line templates/country.qtpl:244
+//line templates/country.qtpl:238
 }
 
-//line templates/country.qtpl:246
+//line templates/country.qtpl:240
 func StreamCountry3SQL(qw422016 *qt422016.Writer, opts *CountryOptions) {
-//line templates/country.qtpl:246
+//line templates/country.qtpl:240
 	qw422016.N().S(`CREATE TYPE iso_country3 AS ENUM (
 `)
-//line templates/country.qtpl:248
+//line templates/country.qtpl:242
 	for i, ent := range opts.Entries {
-//line templates/country.qtpl:248
+//line templates/country.qtpl:242
 		qw422016.N().S(`    '`)
-//line templates/country.qtpl:249
+//line templates/country.qtpl:243
 		qw422016.N().S(ent.Alpha3)
-//line templates/country.qtpl:249
+//line templates/country.qtpl:243
 		qw422016.N().S(`'`)
-//line templates/country.qtpl:249
+//line templates/country.qtpl:243
 		if i != len(opts.Entries)-1 {
-//line templates/country.qtpl:249
+//line templates/country.qtpl:243
 			qw422016.N().S(`,`)
-//line templates/country.qtpl:249
+//line templates/country.qtpl:243
 		}
-//line templates/country.qtpl:249
+//line templates/country.qtpl:243
 		qw422016.N().S(`
 `)
-//line templates/country.qtpl:250
+//line templates/country.qtpl:244
 	}
-//line templates/country.qtpl:250
+//line templates/country.qtpl:244
 	qw422016.N().S(`)
 `)
-//line templates/country.qtpl:252
+//line templates/country.qtpl:246
 }
 
-//line templates/country.qtpl:252
+//line templates/country.qtpl:246
 func WriteCountry3SQL(qq422016 qtio422016.Writer, opts *CountryOptions) {
-//line templates/country.qtpl:252
+//line templates/country.qtpl:246
 	qw422016 := qt422016.AcquireWriter(qq422016)
-//line templates/country.qtpl:252
+//line templates/country.qtpl:246
 	StreamCountry3SQL(qw422016, opts)
-//line templates/country.qtpl:252
+//line templates/country.qtpl:246
 	qt422016.ReleaseWriter(qw422016)
-//line templates/country.qtpl:252
+//line templates/country.qtpl:246
 }
 
-//line templates/country.qtpl:252
+//line templates/country.qtpl:246
 func Country3SQL(opts *CountryOptions) string {
-//line templates/country.qtpl:252
+//line templates/country.qtpl:246
 	qb422016 := qt422016.AcquireByteBuffer()
-//line templates/country.qtpl:252
+//line templates/country.qtpl:246
 	WriteCountry3SQL(qb422016, opts)
-//line templates/country.qtpl:252
+//line templates/country.qtpl:246
 	qs422016 := string(qb422016.B)
-//line templates/country.qtpl:252
+//line templates/country.qtpl:246
 	qt422016.ReleaseByteBuffer(qb422016)
-//line templates/country.qtpl:252
+//line templates/country.qtpl:246
 	return qs422016
-//line templates/country.qtpl:252
+//line templates/country.qtpl:246
 }
