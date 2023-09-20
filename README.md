@@ -9,7 +9,7 @@ Main focus set on memory usage, performance and dependency freedom.
 go get -u github.com/kzmnbrs/iso/go
 ```
 
-Usage:
+## Usage
 ```go
 package main
 
