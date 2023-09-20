@@ -1,5 +1,5 @@
 # iso
-Package contains ISO country/currency enums with. Based on [github.com/countries/countries](https://github.com/countries/countries).
+Package contains ISO country/currency enums. Based on [github.com/countries/countries](https://github.com/countries/countries).
 All enums are `uint8` subtypes, effeciently implement `json.Unmarshaler`, SQL interfaces and `fmt.Stringer`.
 
 Main focus set on memory usage, performance and dependency freedom.
